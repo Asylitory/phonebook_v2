@@ -1,6 +1,5 @@
 package com.lardi_trans.test.logic;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +18,7 @@ public class MySQL_JDBC_Database implements DBConnector {
 	private static MySQL_JDBC_Database instance = null;
 	private static Connection connection;
 	
+	private final static String SYSTEMPROPERTIESKEY = "phonebook_v2.properties";
 	private final static String PATH = "properties\\dbConnection.properties";
 	private final static String dbPASSWORDKEY = "db.password";
 	private final static String dbUSERNAMEKEY = "db.username";
@@ -29,10 +29,11 @@ public class MySQL_JDBC_Database implements DBConnector {
 	public static synchronized DBConnector getInstance() {
 		if (null == instance) {
 			try {
-				Properties props = new Properties();
-				FileInputStream fileInputStream = new FileInputStream(PATH);
+				System.setProperty(SYSTEMPROPERTIESKEY, PATH);
 				
-				props.load(fileInputStream);
+				Properties props = new Properties();
+				String propsPath = System.getProperty(SYSTEMPROPERTIESKEY);
+				props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(propsPath));
 				
 				String password = props.getProperty(dbPASSWORDKEY);
 				String username = props.getProperty(dbUSERNAMEKEY);
