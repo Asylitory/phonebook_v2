@@ -19,7 +19,7 @@ public class MySQL_JDBC_Database implements DBConnector {
 	private static Connection connection;
 	
 	private final static String SYSTEMPROPERTIESKEY = "phonebook_v2.properties";
-	private final static String PATH = "properties\\dbConnection.properties";
+	private final static String PATH = "dbConnection.properties";
 	private final static String dbPASSWORDKEY = "db.password";
 	private final static String dbUSERNAMEKEY = "db.username";
 	private final static String dbPATHKEY = "db.path";
@@ -30,7 +30,7 @@ public class MySQL_JDBC_Database implements DBConnector {
 		if (null == instance) {
 			try {
 				System.setProperty(SYSTEMPROPERTIESKEY, PATH);
-				
+
 				Properties props = new Properties();
 				String propsPath = System.getProperty(SYSTEMPROPERTIESKEY);
 				props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(propsPath));
