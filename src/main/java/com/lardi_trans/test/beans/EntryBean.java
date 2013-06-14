@@ -12,7 +12,7 @@ import com.lardi_trans.test.logic.MySQL_JDBC_Database;
 public class EntryBean {
 	private Entry entry = null;
 	
-	private List<String> errors;
+	private List<String> errors = null;
 	private DBConnector dbConnector;
 	
 	public EntryBean() {}
@@ -31,7 +31,7 @@ public class EntryBean {
 		return true;
 	}
 	
-	public boolean isEntrySaved() throws SQLException {
+	public boolean saveEntry() throws SQLException {
 		Validator validator = EntryValidator.getInstance();
 		errors = validator.validate(entry);
 		
@@ -44,15 +44,6 @@ public class EntryBean {
 			dbConnector.editEntry(entry);
 		} else {
 			dbConnector.addEntry(entry);
-		}
-		return true;
-	}
-	
-	public boolean getValidation() {
-		Validator validator = EntryValidator.getInstance();
-		errors = validator.validate(entry);
-		if (errors.size() > 0) {
-			return false;
 		}
 		return true;
 	}

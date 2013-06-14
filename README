@@ -1,0 +1,10 @@
+Файл параметров: dbConnection.properties
+Путь к файлу: src\main\webapp\WEB-INF\classes\
+
+Пример файла:
+#Пароль
+db.password=password 
+#Логин
+db.username=username
+#Путь к БД
+db.path=jdbc\:mysql\://127.0.0.1\:3306/phonebook

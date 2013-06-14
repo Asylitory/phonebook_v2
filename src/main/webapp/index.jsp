@@ -1,4 +1,4 @@
-<%@page import="org.apache.taglibs.standard.tlv.JstlBaseTLV"%>
+<%@page import="com.lardi_trans.test.classes.Entry"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,6 +12,18 @@
 <jsp:useBean id="entriesListBean" class="com.lardi_trans.test.beans.EntriesListBean"></jsp:useBean>
 <%
 	entriesListBean.getEntries();
+
+	if (null != request.getParameter("DELETE")) {
+		for (Entry entry : entriesListBean.getEntriesList()) {
+			if (null != request.getParameter("id" + entry.getId())) {
+				entriesListBean.setToDelete(entry);
+			}
+		}
+		if (entriesListBean.getDeletedEntries().size() > 0) {
+			entriesListBean.deleteEntries();
+			entriesListBean.getEntries();
+		}
+	}
 %>
 <title>Phonebook v2</title>
 </head>
@@ -20,17 +32,18 @@
   <h2 class="headerText">Phonebook v2</h2>
  </div>
  <div class="content block">
-  <table class="information">
-   <tr>
-    <td>Info string #1</td>
-   </tr>
-   <tr>
-    <td>Info string #2</td>
-   </tr>
-   <tr>
-    <td>Info string #3</td>
-   </tr>
-  </table>
+  <c:if test="${entriesListBean.deletedEntries.size() > 0}">
+   <table class="information">
+    <tr>
+     <td>Были удалены следующие записи:</td>
+    </tr>
+    <c:forEach var="entry" items="${entriesListBean.deletedEntries}">
+     <tr>
+      <td>${entry.lastname} ${entry.firstname} ${entry.patronymic}</td>
+     </tr>
+    </c:forEach>
+   </table>
+  </c:if>
   <form method="POST" action="${pageContext.request.contextPath}/index.jsp" id="massDelete">
    <table class="data">
     <tr>
@@ -41,14 +54,14 @@
      <th>Адрес</th>
      <th>Эл.почта</th>
     </tr>
-    <c:forEach var="entry" items="${entriesListBean}">
+    <c:forEach var="entry" items="${entriesListBean.entriesList}">
      <tr>
-      <td><input type="checkbox" onclick="uncheckSelectAll(this)" class="onDelete" name="id=${entry.id}"></td>
-      <td><a href="${pageContext.request.contextPath}/edit.jsp">${entry.lastname} ${entry.firstname} ${entry.patronymic}</a></td>
-      <td><a href="${pageContext.request.contextPath}/edit.jsp">${entry.phone_mobile}</a></td>
-      <td><a href="${pageContext.request.contextPath}/edit.jsp">${entry.phone_home}</a></td>
-      <td><a href="${pageContext.request.contextPath}/edit.jsp">${entry.address}</a></td>
-      <td><a href="${pageContext.request.contextPath}/edit.jsp">${entry.email}</a></td>
+      <td><input type="checkbox" onclick="uncheckSelectAll(this)" class="onDelete" name="id${entry.id}"></td>
+      <td><a href="${pageContext.request.contextPath}/edit.jsp?id=${entry.id}" class="link">${entry.lastname} ${entry.firstname} ${entry.patronymic}</a></td>
+      <td><a href="${pageContext.request.contextPath}/edit.jsp?id=${entry.id}" class="link">${entry.phone_mobile}</a></td>
+      <td><a href="${pageContext.request.contextPath}/edit.jsp?id=${entry.id}" class="link">${entry.phone_home}</a></td>
+      <td><a href="${pageContext.request.contextPath}/edit.jsp?id=${entry.id}" class="link">${entry.address}</a></td>
+      <td><a href="${pageContext.request.contextPath}/edit.jsp?id=${entry.id}" class="link">${entry.email}</a></td>
      </tr>
     </c:forEach>
    </table>
@@ -56,7 +69,7 @@
   <form method="POST" action="${pageContext.request.contextPath}/add.jsp" id="newEntry"></form>
   <table class="controls">
    <tr>
-    <td><input type="submit" form="deleteSelected" value="Удалить выделенные" name="deleteAll"></td>
+    <td><input type="submit" form="massDelete" value="Удалить выделенные" name="DELETE"></td>
     <td><input type="submit" form="newEntry" value="Создать новую запись" name="createNew"></td>
    </tr>
   </table>

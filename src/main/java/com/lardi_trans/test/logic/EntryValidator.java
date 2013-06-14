@@ -51,7 +51,7 @@ public class EntryValidator implements Validator {
 		pattern = Pattern.compile("\\+38\\([0-9]{1,3}\\)[0-9]{3,7}");
 		matcher = pattern.matcher(entry.getPhone_mobile());
 		if (!matcher.matches()) {
-			errors.add("Мобильный номер должен соответствовать формату '+38(yyy)xxxxxx");
+			errors.add("Мобильный номер должен соответствовать формату '+38(yyy)xxxxxxx");
 		}
 		if (entry.getPhone_home().length() != 0) {
 			pattern = Pattern.compile("\\+38\\([0-9]{1,4}\\)[0-9]{3,7}");
