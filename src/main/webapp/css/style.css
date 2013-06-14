@@ -1,0 +1,91 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+body, html {
+	background: #444;	
+	color: #fff;
+}
+.block {
+	background-color: #333;
+	border-radius: 20px;
+	box-shadow: 0 10px 10px #111;
+}
+/* HEADER */
+.header {
+	width: 900px;
+	height: 50px;
+	margin: 0 auto 15px;
+}
+.headerText {
+	text-align: center;
+	padding-top: 10px;
+}
+/* CONTENT */
+.content {
+	width: 900px;
+	margin: 0 auto 15px;
+}
+.information {
+	color: #f00;
+	margin: 0px auto;
+	padding-top: 10px;
+}
+.data {
+	margin: 15px auto;
+	border-collapse: collapse;
+	text-align: center;
+}
+.data th, .data td {
+	border: 1px solid #444;
+	min-width: 130px;
+}
+.data th:FIRST-CHILD, .data td:FIRST-CHILD {
+	min-width: 30px;
+}
+.link {
+	text-decoration: none;
+	color: #fff;
+}
+.controls {
+	margin: 0 auto;
+	padding-bottom: 15px;
+}
+.controls input {
+	border: 1px solid #fff;
+	background: #fff;
+	border-radius: 10px;
+	width: 200px;
+}
+.entryEdit {
+	padding: 10px 0 10px 150px;
+	margin: 0 auto;
+}
+.usualField {
+	min-width: 100px; 
+}
+.reqField {
+	width: 150px;
+	color: #f00;
+	font-style: italic;
+}
+.entryEdit tr:LAST-CHILD {
+	text-align: center;
+}
+ .buttons input {
+	border: 1px solid #fff;
+	background: #fff;
+	border-radius: 10px;
+	width: 150px;
+ }
+/* FOOTER */
+.footer {
+	width: 900px;
+	height: 50px;
+	margin: 0 auto;
+}
+.footerText {
+	float: right;
+	margin: 15px 25px 0;
+}

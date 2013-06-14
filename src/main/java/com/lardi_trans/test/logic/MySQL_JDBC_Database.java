@@ -19,7 +19,7 @@ public class MySQL_JDBC_Database implements DBConnector {
 	private static MySQL_JDBC_Database instance = null;
 	private static Connection connection;
 	
-	private final static String PATH = "properties\\dbConnection.properties";
+	private final static String PATH = "dbConnection.properties";
 	private final static String dbPASSWORDKEY = "db.password";
 	private final static String dbUSERNAMEKEY = "db.username";
 	private final static String dbPATHKEY = "db.path";
